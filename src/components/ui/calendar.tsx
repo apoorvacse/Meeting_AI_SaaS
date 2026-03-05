@@ -13,6 +13,16 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const components: any = {
+    IconLeft: ({ className, ...props }: React.ComponentProps<typeof ChevronLeft>) => (
+      <ChevronLeft className={cn("size-4", className)} {...props} />
+    ),
+    IconRight: ({ className, ...props }: React.ComponentProps<typeof ChevronRight>) => (
+      <ChevronRight className={cn("size-4", className)} {...props} />
+    ),
+  };
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -59,14 +69,9 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeft className={cn("size-4", className)} {...props} />
-        ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRight className={cn("size-4", className)} {...props} />
-        ),
-      }}
+      // Support custom icon components with the newer react-day-picker types
+      // while avoiding tight coupling to internal types.
+      components={components}
       {...props}
     />
   )
