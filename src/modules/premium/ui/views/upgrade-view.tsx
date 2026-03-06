@@ -59,6 +59,7 @@ export const UpgradeView = () => {
           {products.map((product) => {
             const isCurrentProduct = currentSubscription?.id === product.id;
             const isPremium = !!currentSubscription;
+            const firstPrice = product.prices[0];
 
             let buttonText = "Upgrade";
             let onClick = () => handleCheckout(product.id);
@@ -83,12 +84,16 @@ export const UpgradeView = () => {
                 }
                 title={product.name}
                 price={
-                  product.prices[0].amountType === "fixed"
-                    ? product.prices[0].priceAmount / 100
+                  firstPrice.amountType === "fixed"
+                    ? firstPrice.priceAmount / 100
                     : 0
                 }
                 description={product.description}
-                priceSuffix={`/${product.prices[0].recurringInterval}`}
+                priceSuffix={
+                  "recurringInterval" in firstPrice
+                    ? `/${firstPrice.recurringInterval}`
+                    : ""
+                }
                 features={product.benefits.map(
                   (benefit) => benefit.description
                 )}
