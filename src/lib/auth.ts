@@ -26,7 +26,7 @@ const plugins =
 
 export const auth = betterAuth({
   // Allow both the default Next.js dev port and the fallback port used when 3000 is busy.
-  trustedOrigins: ["http://localhost:3000", "http://localhost:3001"],
+  trustedOrigins: ["https://meeting-ai-saa-s-1r8l.vercel.app"],
   plugins,
   socialProviders: {
     github: { 
